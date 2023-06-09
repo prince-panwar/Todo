@@ -7,8 +7,8 @@ export default function Home() {
     <main className={styles.main}>
      <div className={styles.Header}>
     <Header/>
-    <TodoInput/>
-    </div>
+    <TodoInput />
+   </div>
     </main>
   )
 }
