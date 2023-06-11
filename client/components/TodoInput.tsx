@@ -1,15 +1,19 @@
 "use client"
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 const TodoInput =()=>{
-    const HandleSubmit=(e: FormEvent<HTMLFormElement>)=>{
+    const [todo,setTodo]=useState<string>("");
+    const HandleSubmit=(e:  React.SyntheticEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        console.log(e);
+        const form = e.target as HTMLFormElement;
+        const input = form.elements.namedItem('userInput') as HTMLInputElement;
+       console.log(input.value);
+     
       
     }
     return(
         <form onSubmit={HandleSubmit}>
             <input placeholder="Enter todo"
-            className="input"/>
+            className="input" name='userInput' type='text'/>
             <button  type="submit" className="addbtn">Add</button>
         </ form>
         
