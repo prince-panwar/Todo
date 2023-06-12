@@ -7,9 +7,9 @@ const TodoInput =()=>{
         const form = e.target as HTMLFormElement;
         const input = form.elements.namedItem('userInput') as HTMLInputElement;
        console.log(input.value);
+       setTodo(input.value);
+     }
      
-      
-    }
     return(
         <form onSubmit={HandleSubmit}>
             <input placeholder="Enter todo"
