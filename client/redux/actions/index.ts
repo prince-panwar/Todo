@@ -1,3 +1,4 @@
+"use client"
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import axios from 'axios';

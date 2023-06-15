@@ -1,3 +1,4 @@
+"use Client"
 import * as actionTypes from "../actions/type"
 export  const todosReducer=(state =[],action)=>{
     switch(action.type){
