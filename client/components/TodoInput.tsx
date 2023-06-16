@@ -1,16 +1,22 @@
 "use client"
 import React, {useState } from 'react';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const TodoInput =()=>{
   const [todoItem,setTodoItem] = useState<string>("");
-    const dispatch =useDispatch();
-    const HandleSubmit=(e:  React.SyntheticEvent<HTMLFormElement>)=>{
+    const API_URL='http://localhost:8000'
+    const HandleSubmit= async (e:  React.SyntheticEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         const input = form.elements.namedItem('userInput') as HTMLInputElement;
-       console.log(input.value);
        setTodoItem(input.value);
+       try{
+        const response = await axios.post(`${API_URL}/todos`, {todoItem});
+       }
+       catch(e:any){
+        console.log(e.message);
+       }
+
      
      }
      
