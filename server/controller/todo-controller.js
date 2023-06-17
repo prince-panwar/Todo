@@ -16,7 +16,7 @@ export const  addNewTodo= async(request,response)=>{
 export const getAllTodos = async(request, response)=>{
   try{
   await todo.find({}).sort({'createdAt':-1}) //hit data base using todo collection and find method 
-  response.status(200).json(newTodo);}
+  response.status(200).json(todo);}
   catch(e){
     response.status(500).json(e.message);
 }

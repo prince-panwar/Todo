@@ -12,7 +12,7 @@ interface Todo {
 interface TodoData{
     data:Todo[]|null;
 }
-const   API_URL="http://localhost:8000"
+const API_URL='http://localhost:8000'
 export const getServerSideProps:GetServerSideProps<TodoData> = async()=>{
     try{
         const res = await axios.get<Todo[]>(`${API_URL}/todos`);
@@ -39,9 +39,13 @@ const Todos:NextPage<TodoData> = ({data})=>{
         <div>
         {data?(
             data.map((item)=>(
-                <div key={item.todoItem}
+                <div key={item.item.todoItem}>
+                    <p>{item.item.todoItem}</p>
+                    <p>{item.item.done?"Done":"Not Done"}</p>
+                    
+                </div>
             ))
-        )}
+        ):(<div>Data not Found</div>)}
         </div>
 
     );
