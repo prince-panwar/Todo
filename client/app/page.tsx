@@ -9,7 +9,7 @@ export default function Home() {
      <div className={styles.Header}>
     <Header/>
     <TodoInput />
-    <Todos/>
+  <Todos/>
    </div>
     </main>
   )
