@@ -10,6 +10,7 @@ const TodoInput =()=>{
         const form = e.target as HTMLFormElement;
         const input = form.elements.namedItem('userInput') as HTMLInputElement;
        setTodoItem(input.value);
+       console.log(todoItem);
        try{
         const response = await axios.post(`${API_URL}/todos`, {todoItem});
        }
