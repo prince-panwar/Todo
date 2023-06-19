@@ -12,9 +12,11 @@ interface Todo {
   createdAt: Date;
 }
 
-const Todos = () => {
+const Todos = ({ addProp }: { addProp: boolean }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
- const [editing,setEditing] = useState<boolean>(false);
+  const [isEditing,setIsEditing] = useState<boolean>(false);
+ const [editing,setEditing] = useState<string|null>(null);
+ const [done,setDone]=useState<boolean>(false);
 
   useEffect(() => {
     
@@ -30,7 +32,7 @@ const Todos = () => {
 
     fetchData();
    
-  }, [todos]);
+  }, [isEditing,done,addProp]);
 
 
 
@@ -38,17 +40,26 @@ const Todos = () => {
  
         try {
           const response = await axios.get(`http://localhost:8000/todos/${id}`);
-
+         setDone(prev=>!prev);
           
         } catch (error:any) {
           console.error(error.message);
         }
-      
-  
-      
+   }
 
+   const HandleEditing=(id:string)=>{
+    if(!isEditing){
+    setEditing(id);
+    setIsEditing(true);
+  }else{
+    setIsEditing(false);
+    setEditing(null);
   }
-  return (
+   }
+ 
+ 
+ 
+   return (
  <div>
     <ul>
         {todos.map((data)=>(
@@ -57,11 +68,11 @@ const Todos = () => {
             
              
              }}>
+           {editing!=data._id?( <span >{data.todoItem}</span>):( <input className="todoEdit" placeholder="Enter todo" name='userInput' type='text'/>)}
            
-            <span>{data.todoItem}</span>
              
             <span className="icon"><FaTrash/> </span>
-            <span className="icon" onClick={()=>setEditing(prevState=>!prevState)} > <FaPen/></span>
+            <span className="icon" onClick={()=>HandleEditing(data._id)} > <FaPen/></span>
           
            
            </li>
