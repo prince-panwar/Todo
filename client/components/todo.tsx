@@ -14,6 +14,7 @@ interface Todo {
 
 const Todos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+ const [editing,setEditing] = useState<boolean>(false);
 
   useEffect(() => {
     
@@ -29,7 +30,9 @@ const Todos = () => {
 
     fetchData();
    
-  }, []);
+  }, [todos]);
+
+
 
   const HandleTodoClick= async(id:string)=>{
  
@@ -49,12 +52,17 @@ const Todos = () => {
  <div>
     <ul>
         {todos.map((data)=>(
-             <li className="todoList" key={data._id} onClick={()=>HandleTodoClick(data._id)}>
+             <li className="todoList" key={data._id} onClick={()=>HandleTodoClick(data._id)}
+             style={{textDecoration: data.done?'line-through':'',
+            
+             
+             }}>
+           
             <span>{data.todoItem}</span>
              
             <span className="icon"><FaTrash/> </span>
-            <span className="icon"> <FaPen/></span>
-            <span>{data.done?"done":"not Done"}</span>
+            <span className="icon" onClick={()=>setEditing(prevState=>!prevState)} > <FaPen/></span>
+          
            
            </li>
         ))}

@@ -3,6 +3,6 @@ import { addNewTodo ,getAllTodos,toggleTodoDone} from "../controller/todo-contro
 
 export const route = express.Router();
 route.post('/todos',addNewTodo);
-route.get('/todos:id',toggleTodoDone)
+route.get('/todos/:id',toggleTodoDone)
 route.get('/todos',getAllTodos);
 
