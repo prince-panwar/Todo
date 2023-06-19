@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {FaTrash} from "react-icons/fa"
 import {FaPen} from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import "../style/todo.css"
 
 interface Todo {
@@ -15,9 +16,9 @@ interface Todo {
 const Todos = ({ addProp }: { addProp: boolean }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isEditing,setIsEditing] = useState<boolean>(false);
- const [editing,setEditing] = useState<string|null>(null);
+ const [editingId,setEditingId] = useState<string|null>(null);
  const [done,setDone]=useState<boolean>(false);
-
+ const [editText,setEditText] = useState<string>('');
   useEffect(() => {
     
     const fetchData = async () => {
@@ -47,15 +48,31 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
         }
    }
 
-   const HandleEditing=(id:string)=>{
+   const HandleEditingMode=(id:string)=>{
     if(!isEditing){
-    setEditing(id);
+    setEditingId(id);
     setIsEditing(true);
   }else{
     setIsEditing(false);
-    setEditing(null);
+    setEditingId(null);
   }
    }
+   const HandleEditing= async (e:  React.SyntheticEvent<HTMLFormElement>,id:string)=>{
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const input = form.elements.namedItem('userInput') as HTMLInputElement;
+    const inputValue = input.value;
+    console.log(inputValue);
+    setEditText(inputValue);
+    setIsEditing(false);
+    setEditingId(null);
+    try{
+      const response=await axios.put(`http://localhost:8000/todos/${id}`,{todoItem: inputValue});
+    
+    }catch(e:any){console.log(e.message);}
+   
+
+  };
  
  
  
@@ -68,11 +85,21 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
             
              
              }}>
-           {editing!=data._id?( <span >{data.todoItem}</span>):( <input className="todoEdit" placeholder="Enter todo" name='userInput' type='text'/>)}
+           {editingId!=data._id?( <span >{data.todoItem}</span>):( 
+             <form onSubmit={(e)=>HandleEditing(e,data._id)}>
+             <input
+               className="todoEdit"
+               type="text"
+              placeholder="Edit Here"
+              name="userInput"
+              />
+              <button  type="submit" className="icon"><FaCheckCircle/></button>
+           </form>
+           )}
            
              
             <span className="icon"><FaTrash/> </span>
-            <span className="icon" onClick={()=>HandleEditing(data._id)} > <FaPen/></span>
+            <span className="icon" onClick={()=>HandleEditingMode(data._id)} > <FaPen/></span>
           
            
            </li>
