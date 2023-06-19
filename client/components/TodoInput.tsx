@@ -4,14 +4,14 @@ import axios from 'axios';
 import Todos from './todo';
 
 const TodoInput =()=>{
-  const [todoItem,setTodoItem] = useState<string>("");
+
   const [addtodo,setAddtodo] = useState<boolean>(false);
     const API_URL='http://localhost:8000'
     const HandleSubmit= async (e:  React.SyntheticEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         const input = form.elements.namedItem('userInput') as HTMLInputElement;
-       setTodoItem(input.value);
+       const todoItem = input.value
        setAddtodo(prev=>!prev);
        
        try{

@@ -1,4 +1,4 @@
-
+import mongoose from "mongoose";
 import {todo} from "../model/todo.js"
 export const  addNewTodo= async(request,response)=>{
     try{const newTodo =await todo.create({
@@ -49,5 +49,16 @@ export const updateData=async(request, response)=>{
     catch(e){
       response.status(500).json(e.message);
   }
-
+ 
+}
+export const deleteData=async(request, response)=>{
+    
+  try{
+    const id = new mongoose.Types.ObjectId(request.params.id);
+    const Todo = await todo.findOneAndDelete({ _id: id });
+  
+    response.status(200).json(Todo);}
+    catch(e){
+      response.status(500).json(e.message);
+  }
 }

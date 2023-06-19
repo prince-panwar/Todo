@@ -18,7 +18,8 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
   const [isEditing,setIsEditing] = useState<boolean>(false);
  const [editingId,setEditingId] = useState<string|null>(null);
  const [done,setDone]=useState<boolean>(false);
- const [editText,setEditText] = useState<string>('');
+ const [deleteTodo,setDeleteTodo] = useState<boolean>(false);
+ 
   useEffect(() => {
     
     const fetchData = async () => {
@@ -33,7 +34,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
 
     fetchData();
    
-  }, [isEditing,done,addProp]);
+  }, [isEditing,done,addProp,deleteTodo]);
 
 
 
@@ -63,7 +64,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
     const input = form.elements.namedItem('userInput') as HTMLInputElement;
     const inputValue = input.value;
     console.log(inputValue);
-    setEditText(inputValue);
+  
     setIsEditing(false);
     setEditingId(null);
     try{
@@ -71,6 +72,14 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
     
     }catch(e:any){console.log(e.message);}
    
+
+  };
+
+  const HandleDelete = async (id:string) => {
+    setDeleteTodo(prev=>!prev);
+    try{ 
+       const response=await axios.delete(`http://localhost:8000/todos/${id}`);
+  }catch(e:any){console.log(e.message);}
 
   };
  
@@ -98,7 +107,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
            )}
            
              
-            <span className="icon"><FaTrash/> </span>
+            <span className="icon" onClick={()=>HandleDelete(data._id)}><FaTrash/> </span>
             <span className="icon" onClick={()=>HandleEditingMode(data._id)} > <FaPen/></span>
           
            
