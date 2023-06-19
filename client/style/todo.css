@@ -17,6 +17,19 @@
     float: right;
     margin-left: 20px;
   }
+  .todoEdit{
+    background-color: #33495e;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    
+    
+   
+   }
+  .todoEdit::placeholder{
+    color: #ffffff;
+    font-size: larger;
+  }
 
 
   
