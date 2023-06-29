@@ -1,16 +1,13 @@
-import Header from "../components/Header"
-import TodoInput from "../components/TodoInput"
-import styles from './page.module.css'
-
-
+import Link from "next/link";
+import LoginForm from "../components/loginForm";
 export default function Home() {
-  return (
-    <main className={styles.main}>
-     <div className={styles.Header}>
-    <Header/>
-    <TodoInput />
 
+  return (
+  
+     <div>
+<LoginForm/>
+<Link href={"/home"}>home</Link>
    </div>
-    </main>
+
   )
 }
