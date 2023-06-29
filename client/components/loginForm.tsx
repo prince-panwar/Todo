@@ -9,6 +9,8 @@ import Link from "next/link";
 
   const handleSubmit=(e:  React.SyntheticEvent<HTMLFormElement>)=>{
     e.preventDefault();
+    console.log(email)
+    console.log(Password)
   }
     return (
       <form onSubmit={handleSubmit}>
