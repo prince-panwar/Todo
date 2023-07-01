@@ -1,32 +1,55 @@
 "use client"
-import { useState } from "react"
-const Signup=()=>{
-    const [email,setEmail]=useState<string>("")
-    const  [Password,setPassword] = useState<string>("")
-const handleSubmit=(e:  React.SyntheticEvent<HTMLFormElement>)=>{
+import { useState } from "react";
+import axios, { Axios, AxiosError, AxiosResponse } from "axios";
+
+const Signup = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const API_URL = "http://localhost:8000/user/signup";
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email)
-    console.log(Password)
-  }
-    return (
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input 
-        type="email"
-         placeholder="Enter the email"
-         onChange={(e)=>setEmail(e.target.value)}
-         value={email}
-         />
-        <label>Password</label>
-        <input 
-        type="password" 
-        placeholder="Enter the Password"
-        onChange={(e)=>setPassword(e.target.value)} 
-        value={Password}
-        />
-     <button type="submit">signup</button>
-      </form>
-    );
+    setError(null);
+    try {
+      const response = await axios.post(API_URL, { email, password });
+      console.log(response);
   
-}
+      // Handle successful response
+      if (response.status === 200) {
+        const { email, token } = response.data;
+        console.log(email, token);
+      }
+    } catch (error:any) {
+      if (error.response && error.response.status === 400) {
+        const errorMessage = error.response.data;
+        setError(errorMessage);
+      }
+    }
+  };
+  
+   
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Email</label>
+      <input
+        type="email"
+        placeholder="Enter the email"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+      />
+      <label>Password</label>
+      <input
+        type="password"
+        placeholder="Enter the Password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
+      <button type="submit">signup</button>
+      {error && <div>{error}</div>}
+    </form>
+  );
+};
+
 export default Signup;

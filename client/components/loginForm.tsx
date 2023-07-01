@@ -1,16 +1,32 @@
 "use client"
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
  const LoginForm =()=>{
   const [email,setEmail]=useState<string>("")
-  const  [Password,setPassword] = useState<string>("")
+  const  [password,setPassword] = useState<string>("")
+  const [error,setError]=useState<string|null>(null);
+const API_URL="http://localhost:8000/user/login";
 
-
-  const handleSubmit=(e:  React.SyntheticEvent<HTMLFormElement>)=>{
+  
+const handleSubmit  = async (e:  React.SyntheticEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    console.log(email)
-    console.log(Password)
+    setError(null);
+    try{
+      const response = await axios.post(`${API_URL}`,JSON.stringify({email,password}))
+   
+      
+    }
+  catch(e:any){
+    if(e.response&&e.response.status===400){
+      const errorMessage=e.response.data;
+      setError(errorMessage);
+    }
+  }
+
+    
+   
   }
     return (
       <form onSubmit={handleSubmit}>
@@ -26,7 +42,7 @@ import Link from "next/link";
         type="password" 
         placeholder="Enter the Password"
         onChange={(e)=>setPassword(e.target.value)} 
-        value={Password}
+        value={password}
         />
        
         <button type='submit'>submit</button>
@@ -35,6 +51,7 @@ import Link from "next/link";
         signup
          </Link>
         </button>
+        {error&&<div>{error}</div>}
       </form>
     );
   
