@@ -16,11 +16,12 @@ const API_URL="http://localhost:8000/user/login";
 const handleSubmit  = async (e:  React.SyntheticEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setError(null);
+    console.log({email,password})
     try{
       const response = await axios.post(`${API_URL}`,JSON.stringify({email,password}))//making a call to login route 
       Cookies.set("currentUser",JSON.stringify(response)); //stroring the res (email,token) in cookies
       router.push("/home")
-      console.log(response);
+
       
     }
   catch(e:any){
