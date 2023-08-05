@@ -1,18 +1,23 @@
 "use client"
 import { useState } from "react";
-import axios, { Axios, AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const API_URL = "http://localhost:8000/user/signup";
+ const router = useRouter();
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     try {
       const response = await axios.post(API_URL, { email, password });
+      Cookies.set("currentUser", JSON.stringify(response));
+      router.push("/home");
       console.log(response);
   
       // Handle successful response
