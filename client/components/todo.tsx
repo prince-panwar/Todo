@@ -4,7 +4,9 @@ import axios from "axios";
 import {FaTrash} from "react-icons/fa"
 import {FaPen} from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
+import Cookies from "js-cookie";
 import "../style/todo.css"
+
 
 interface Todo {
   _id: string;
@@ -24,9 +26,12 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
     
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/todos");
+        const userId = Cookies.get("userId");
+        const response = await axios.get("http://localhost:8000/todos", {
+          params: { userId }, // Send userId as a query parameter
+        });
         setTodos(response.data);
-        
+        console.log(response.data);
       } catch (error:any) {
         console.error(error.message);
       }
@@ -114,6 +119,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
            </li>
         ))}
     </ul>
+ 
  </div>
   );
 };

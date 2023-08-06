@@ -16,7 +16,9 @@ const Signup = () => {
     setError(null);
     try {
       const response = await axios.post(API_URL, { email, password });
-      Cookies.set("currentUser", JSON.stringify(response));
+      const { userID, token } = response.data; // Destructure the response object to get userID and token
+      Cookies.set("currentUser", JSON.stringify(token)); // Storing the token in cookies
+      Cookies.set("userId", JSON.stringify(userID));
       router.push("/home");
       console.log(response);
   

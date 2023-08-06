@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
+
 const LoginForm =()=>{
   const [email,setEmail]=useState<string>("")
   const  [password,setPassword] = useState<string>("")
@@ -19,7 +20,9 @@ const handleSubmit  = async (e:  React.SyntheticEvent<HTMLFormElement>)=>{
     console.log({email,password})
     try{
       const response = await axios.post(`${API_URL}`,{email,password})//making a call to login route 
-      Cookies.set("currentUser",JSON.stringify(response)); //stroring the res (email,token) in cookies
+      const { userID, token } = response.data; // Destructure the response object to get userID and token
+      Cookies.set("currentUser", JSON.stringify(token)); // Storing the token in cookies
+      Cookies.set("userId", JSON.stringify(userID));
       router.push("/home")
   }
   catch(e:any){

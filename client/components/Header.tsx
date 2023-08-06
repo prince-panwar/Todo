@@ -14,9 +14,9 @@ const Header= ()=>{
             <h1>
                 TODO-LIST
             </h1>
-            <div>
-                <button onClick={handleLogOut}>logOut</button>
-            </div>
+            
+        <button className="addbtn"onClick={handleLogOut}>logOut</button>
+            
         </div>
 );
 }
