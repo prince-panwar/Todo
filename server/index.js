@@ -10,6 +10,6 @@ app.use(express.json({extended: true}));
 app.use(express.urlencoded({extended: true}));
 app.use('/',route);
 app.use('/user',userRoute);
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 Connection();
 app.listen(PORT,()=>console.log("Server is running sucessfully on port "+PORT)); 
