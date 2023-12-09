@@ -27,7 +27,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
     const fetchData = async () => {
       try {
         const userId = Cookies.get("userId");
-        const response = await axios.get("http://localhost:8000/todos", {
+        const response = await axios.get("https://todo-main.up.railway.app/todos", {
           params: { userId }, // Send userId as a query parameter
         });
         setTodos(response.data);

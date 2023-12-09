@@ -8,7 +8,7 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const API_URL = "http://localhost:8000/user/signup";
+  const API_URL = "https://todo-main.up.railway.app/user/signup";
  const router = useRouter();
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {

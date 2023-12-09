@@ -9,7 +9,7 @@ const TodoInput =()=>{
 
   const [addtodo,setAddtodo] = useState<boolean>(false);
   const [userId,setUserId]=useState<string|null>(null); 
-  const API_URL='http://localhost:8000'
+  const API_URL='https://todo-main.up.railway.app/'
 
 
 
