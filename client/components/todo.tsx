@@ -46,7 +46,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
   const HandleTodoClick= async(id:string)=>{
  
         try {
-          const response = await axios.get(`http://localhost:8000/todos/${id}`);
+          const response = await axios.get(`https://todo-main.up.railway.app/todos/${id}`);
          setDone(prev=>!prev);
           
         } catch (error:any) {
@@ -73,7 +73,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
     setIsEditing(false);
     setEditingId(null);
     try{
-      const response=await axios.put(`http://localhost:8000/todos/${id}`,{todoItem: inputValue});
+      const response=await axios.put(`https://todo-main.up.railway.app/todos/${id}`,{todoItem: inputValue});
     
     }catch(e:any){console.log(e.message);}
    
@@ -83,7 +83,7 @@ const Todos = ({ addProp }: { addProp: boolean }) => {
   const HandleDelete = async (id:string) => {
     setDeleteTodo(prev=>!prev);
     try{ 
-       const response=await axios.delete(`http://localhost:8000/todos/${id}`);
+       const response=await axios.delete(`https://todo-main.up.railway.app/todos/${id}`);
   }catch(e:any){console.log(e.message);}
 
   };
